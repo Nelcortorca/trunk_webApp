@@ -1,12 +1,10 @@
 from flask import Flask, render_template, request,make_response, redirect, url_for, send_from_directory
 import numpy as np
-import cv2
 from datetime import datetime
 import pandas as pd
 import os
 import string
 import copy
-from PIL import Image
 glob_file= "XXXX"
 glob_file_name="XXX"
 app = Flask(__name__)
@@ -20,10 +18,9 @@ def index():
 
 @app.route('/result', methods=['POST'])
 def result():
-    response = make_response()
     file=request.files['file']
     filepath = datetime.now().strftime("%Y%m%d%H%M%S") +".csv"
-    file_name=file.filename[:-4]
+    file_name=file.filename
     file.save("./static/"+filepath)
     global glob_file
     global glob_file_name
@@ -39,9 +36,9 @@ def download():
     response = make_response()
     response.data = open("./static/"+ret_filepath, "rb").read()
     response.minetype="text/csv"
-    downloadFileName =  ret_filename+ '.csv'
+    downloadFileName =  ret_filename
     response.headers['Content-Disposition'] = 'attachment; filename=' + downloadFileName
-
+    return response
 
 
 if __name__ == "__main__" :
