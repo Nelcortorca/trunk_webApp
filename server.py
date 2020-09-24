@@ -8,6 +8,7 @@ import string
 import copy
 from PIL import Image
 glob_file= "XXXX"
+glob_file_name="XXX"
 app = Flask(__name__)
 @app.route('/')
 def index():
@@ -21,34 +22,27 @@ def index():
 def result():
     response = make_response()
     file=request.files['file']
-    filepath = "./uploads"+datetime.now().strftime("%Y%m%d%H%M%S") +".csv"
-    global glob_file=filepath
+    filepath = datetime.now().strftime("%Y%m%d%H%M%S") +".csv"
+    file_name=file.filename[:-4]
+    file.save("./static/"+filepath)
+    global glob_file
+    global glob_file_name
+    glob_file_name =file_name
+    glob_file = filepath
 
     return render_template("download_csv.html")
 
 @app.route("/download", methods=["POST"])
 def download():
+    ret_filepath = glob_file
+    ret_filename=glob_file_name
     response = make_response()
-
-    return glob_file
-#     response.data(csv_file)
-#     downloadFileName = file.filename[:-4] +".csv"
-#     response.headers["Content-Disposition"] = "attachment; filename=" + downloadFileName
-#     return response
-    if file == "XXXX":
-        return "no!"
-    else:
-        return "done"
+    response.data = open("./static/"+ret_filepath, "rb").read()
+    response.minetype="text/csv"
+    downloadFileName =  ret_filename+ '.csv'
+    response.headers['Content-Disposition'] = 'attachment; filename=' + downloadFileName
 
 
-#
-#     return 0
-#
-# def predict(data):#ここで機械学習の処理を行う
-#
-#     return data
-
-#     return
 
 if __name__ == "__main__" :
     app.debug = True
