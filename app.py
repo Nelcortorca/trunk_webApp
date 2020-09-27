@@ -7,7 +7,7 @@ import string
 import copy
 from prediction import pred
 
-glob_file= "XXXX"
+glob_file= "YYY"
 glob_file_name="XXX"
 app = Flask(__name__)
 @app.route('/')
