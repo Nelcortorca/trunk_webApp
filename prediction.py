@@ -17,6 +17,6 @@ def pred(data_path):
     submit["応募数 合計"]=pred
     submit.loc[submit['応募数 合計'] < 0, "応募数 合計"] = 0.0
     submit.to_csv(data_path,index=False)
-    return data_path
+    # return data_path
 
 
