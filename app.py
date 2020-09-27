@@ -29,10 +29,8 @@ def result():
     global glob_file
     global glob_file_name
     glob_file_name =file_name
-    # glob_file = pred("./static/"+filepath)
-    glob_file="./static/"+filepath
-    pred("./static/" + filepath)
-    return render_template("./templates/download_csv.html")
+    glob_file = pred("./static/"+filepath)
+    return render_template("/download_csv.html")
 
 @app.route("/download", methods=["POST"])
 def download():
@@ -47,5 +45,4 @@ def download():
 
 
 if __name__ == "__main__" :
-    app.debug = True
     app.run(host="localhost")
