@@ -29,7 +29,8 @@ def result():
     global glob_file
     global glob_file_name
     glob_file_name =file_name
-    glob_file = pred("./static/"+filepath)
+    preded= pred("./static/"+filepath)
+    glob_file ="./static/"+filepath
     return render_template("/download_csv.html")
 
 @app.route("/download", methods=["POST"])
