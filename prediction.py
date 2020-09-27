@@ -3,14 +3,13 @@ import pickle
 import re
 
 def pred(data_path):
-    with open("./strage/col.pkl", "rb") as f:
-        cols = pickle.load(f)  # 使用するカラムとその順番（リスト型）
     with open("./strage/lgbm_model.pickle", "rb") as f:
         model = pickle.load(f)  # 使用するモデル（数値のみを抽出して前処理最小限にしたもの）
+
     testest=pd.read_csv(data_path)
+    testest=testest[['お仕事No.','勤務地　市区町村コード','給与/交通費　給与下限']]
 
     testest=testest.fillna(-1)
-    testest=testest[cols]
 
     pred=model.predict(testest)
     submit=pd.DataFrame()
