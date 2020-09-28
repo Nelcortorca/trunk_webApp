@@ -42,6 +42,7 @@ def download():
     response.minetype="text/csv"
     downloadFileName =  ret_filename
     response.headers['Content-Disposition'] = 'attachment; filename=' + "predicted_"+downloadFileName
+    response.headers['Content-Type'] = 'text/csv'
     return response
 
 
